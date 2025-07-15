@@ -9,6 +9,44 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  webpack(config) {
+    // Find the existing rule that handles SVG imports
+    const fileLoaderRule = config.module.rules.find((rule) =>
+      rule.test?.test?.('.svg'),
+    )
+
+    // Add null check
+    if (!fileLoaderRule) {
+      console.warn('No existing SVG file loader rule found')
+      return config
+    }
+
+    config.module.rules.push(
+      // Reapply the existing rule, but only for svg imports ending in ?url
+      {
+        ...fileLoaderRule,
+        test: /\.svg$/i,
+        resourceQuery: /url/, // *.svg?url
+      },
+      // Convert all other *.svg imports to React components
+      {
+        test: /\.svg$/i,
+        issuer: fileLoaderRule.issuer,
+        resourceQuery: { 
+          not: [
+            ...(fileLoaderRule.resourceQuery?.not || []), 
+            /url/
+          ] 
+        },
+        use: ['@svgr/webpack'],
+      },
+    )
+
+    // Modify the file loader rule to ignore *.svg
+    fileLoaderRule.exclude = /\.svg$/i
+
+    return config
+  },
 }
 
 export default nextConfig

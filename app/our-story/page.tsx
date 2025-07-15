@@ -1,190 +1,16 @@
 "use client"
 
 import type React from "react"
-
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react"
-import { Mail, ChevronDown } from "lucide-react"
+import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
+import WavyLine from "../../public/curved-line-big.svg"
+import SocialMediaSection from "../components/SocialMediaSection"
 
 export default function OurStory() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [email, setEmail] = useState("")
-  const [showMahaDropdown, setShowMahaDropdown] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle newsletter signup
-    console.log("Newsletter signup:", email)
-    // Reset form
-    setEmail("")
-    // Show success message or toast
-    alert("Thank you for signing up to our newsletter!")
-  }
-
-  const desires = [
-    { text: "I want to heal my heart.", id: 1 },
-    { text: "I want to feel radically alive.", id: 2 },
-    { text: "I want to express myself", id: 3 },
-    { text: "I want to ground and centre myself.", id: 4 },
-    { text: "I want to have a clear and positive mind.", id: 5 },
-    { text: "I want to regulate my nervous system.", id: 6 },
-  ]
-
   return (
     <div className="flex flex-col min-h-screen bg-sand font-baskervville">
       {/* Navigation Bar */}
-      <nav
-        className={`fixed w-full z-50 transition-all duration-500 ${
-          isScrolled ? "bg-light-sage/95 py-2 shadow-md" : "bg-light-sage py-4"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto flex justify-center items-center px-4 lg:px-6">
-          <div className="flex items-center justify-center">
-            {/* Logo with decorative elements */}
-            <Link href="/" className="flex items-center group relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-sun/0 via-sun/10 to-sun/0 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <img src="/images/menu-logo.png" alt="MAHA Collective" className="h-12 w-auto relative" />
-            </Link>
-
-            {/* Desktop Navigation - Now with decorative separators */}
-            <div className="hidden lg:flex lg:items-center ml-8">
-              <div className="flex items-center space-x-1">
-                <Link
-                  href="/our-story"
-                  className="text-sun hover:text-sun transition-all duration-300 font-baskervville text-xs tracking-wider uppercase px-3 py-2 rounded-md hover:bg-sun/10"
-                >
-                  Our MAHA Story
-                </Link>
-                <span className="text-sun/40">•</span>
-
-                {/* MAHA 21 Dropdown */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => setShowMahaDropdown(true)}
-                  onMouseLeave={() => setShowMahaDropdown(false)}
-                >
-                  <button className="text-soil hover:text-sun transition-all duration-300 font-baskervville text-xs tracking-wider uppercase px-3 py-2 rounded-md hover:bg-sun/10 flex items-center">
-                    MAHA 21
-                    <ChevronDown className="w-3 h-3 ml-1" />
-                  </button>
-
-                  {showMahaDropdown && (
-                    <div className="absolute top-full left-0 mt-2 w-80 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-sun/20 py-2 z-50">
-                      {desires.map((desire) => (
-                        <Link
-                          key={desire.id}
-                          href={`/desire/${desire.id}`}
-                          className="block px-4 py-3 text-soil hover:text-sun hover:bg-sun/10 transition-colors font-baskervville text-sm"
-                        >
-                          {desire.text}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <span className="text-sun/40">•</span>
-                <Link
-                  href="/maha-collective"
-                  className="text-soil hover:text-sun transition-all duration-300 font-baskervville text-xs tracking-wider uppercase px-3 py-2 rounded-md hover:bg-sun/10"
-                >
-                  The MAHA Method
-                </Link>
-                <span className="text-sun/40">•</span>
-                <Link
-                  href="#"
-                  className="text-soil hover:text-sun transition-all duration-300 font-baskervville text-xs tracking-wider uppercase px-3 py-2 rounded-md hover:bg-sun/10"
-                >
-                  MAHA Masterclasses
-                </Link>
-                <span className="text-sun/40">•</span>
-                <Link
-                  href="#"
-                  className="text-soil hover:text-sun transition-all duration-300 font-baskervville text-xs tracking-wider uppercase px-3 py-2 rounded-md hover:bg-sun/10"
-                >
-                  MAHA Community
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden absolute right-4">
-            <button
-              className="p-2 rounded-full bg-sun/10 backdrop-blur-sm border border-sun/20 focus:outline-none focus:ring-2 focus:ring-sun transition-all duration-300 hover:bg-sun/20"
-              onClick={() => {
-                const menu = document.getElementById("mobile-menu")
-                if (menu) {
-                  menu.classList.toggle("hidden")
-                }
-              }}
-            >
-              <svg className="h-5 w-5 text-soil" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div
-          id="mobile-menu"
-          className="hidden w-full lg:hidden mt-4 bg-light-sage/90 backdrop-blur-sm border-t border-b border-sun/20 py-3 animate-in fade-in duration-300"
-        >
-          <div className="flex flex-col space-y-1 px-2 pt-1 pb-2 items-center">
-            <Link
-              href="/our-story"
-              className="text-sun hover:text-sun transition-colors font-baskervville text-xs tracking-wider uppercase py-2 px-4 rounded-md hover:bg-sun/10 w-48 text-center"
-            >
-              Our MAHA Story
-            </Link>
-
-            {/* Mobile MAHA 21 Section */}
-            <div className="w-48">
-              <p className="text-soil font-baskervville text-xs tracking-wider uppercase py-2 px-4 text-center border-b border-sun/20">
-                MAHA 21
-              </p>
-              {desires.map((desire) => (
-                <Link
-                  key={desire.id}
-                  href={`/desire/${desire.id}`}
-                  className="block text-soil hover:text-sun transition-colors font-baskervville text-xs py-2 px-6 text-center hover:bg-sun/10"
-                >
-                  {desire.text}
-                </Link>
-              ))}
-            </div>
-
-            <Link
-              href="/maha-collective"
-              className="text-soil hover:text-sun transition-colors font-baskervville text-xs tracking-wider uppercase py-2 px-4 rounded-md hover:bg-sun/10 w-48 text-center"
-            >
-              The MAHA Method
-            </Link>
-            <Link
-              href="#"
-              className="text-soil hover:text-sun transition-colors font-baskervville text-xs tracking-wider uppercase py-2 px-4 rounded-md hover:bg-sun/10 w-48 text-center"
-            >
-              MAHA Masterclasses
-            </Link>
-            <Link
-              href="#"
-              className="text-soil hover:text-sun transition-colors font-baskervville text-xs tracking-wider uppercase py-2 px-4 rounded-md hover:bg-sun/10 w-48 text-center"
-            >
-              MAHA Community
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -195,203 +21,241 @@ export default function OurStory() {
             alt="Alessandra, founder of MAHA Collective"
             className="w-full h-full object-cover object-top"
           />
-          <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-20">
-          <h1 className="text-4xl md:text-6xl font-baskervville font-normal text-white mb-8 tracking-wide">
-            Our MAHA Story
+        {/* <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-20">
+          <h1 className="text-4xl md:text-6xl font-baskervville font-normal text-[#f2ede8] mt-12 tracking-wide">
+            ABOUT ME & MAHA
           </h1>
-        </div>
-      </section>
+        </div> */}
 
-      {/* Content Section */}
-      <section className="py-20 px-4 bg-sand">
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-8 text-soil/90 font-baskervville text-lg md:text-xl leading-relaxed">
-            <div className="bg-light-sage/30 p-8 rounded-lg border-l-2 border-sun/20">
-              <p className="mb-4">
-                <span className="text-sun font-normal text-2xl">Maha</span> <span className="text-soil/70">(मह)</span> —
-                Sanskrit for great. Greatness is your truest nature, your highest Self, your most authentic Self.
+        <div className="bg-[#b1ad9c] py-1 overflow-hidden w-full absolute left-0 bottom-0">
+          <div className="whitespace-nowrap animate-marquee">
+            {Array.from({ length: 14 }, (_, i) => (
+              <p
+                key={i}
+                className="text-[#f5f3ed] px-8 font-libre text-sm tracking-wider inline-block"
+              >
+                ABOUT ME & MAHA
               </p>
-              <div className="h-px bg-gradient-to-r from-transparent via-sun/20 to-transparent my-6"></div>
-              <p>
-                <span className="text-sun font-normal text-2xl">Collective</span> represents community, belonging, and
-                unity.
-              </p>
-            </div>
-
-            <p className="text-xl md:text-2xl text-soil font-normal text-center">
-              Maha Collective lights the path of inner transformation, to help you reconnect, evolve and embody your
-              highest Self.
-            </p>
-
-            <p className="text-center">
-              Rooted in ancient yogic wisdom and backed by modern science, we offer daily rituals that are simple,
-              accessible, and powerful, that help you live MAHA.
-            </p>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Rotating Banner Section */}
-      <section className="py-16 bg-light-sage/30 border-y border-sun/20">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center">
-            <div className="inline-block bg-sun/10 backdrop-blur-sm rounded-full px-8 py-3 mb-6 border border-sun/20">
-              <p className="text-soil/80 font-baskervville text-sm uppercase tracking-wider">
-                The founder lives and breathes MAHA…
-              </p>
-            </div>
+      <section className="relative w-full bg-[#b0ad9c] pt-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
 
-            <h2 className="text-3xl md:text-4xl font-baskervville font-normal text-soil mb-8 animate-pulse-subtle">
-              To live MAHA means to live in alignment with your highest self.
-            </h2>
+        <div className="relative">
+            <img
+              src="/images/aless-about.jpg"
+              alt="Alessandra in a yoga pose on the beach"
+              className="w-full object-contain "
+            />
+
+            {/* ALESSANDRA Vertical Text Overlay */}
+            {/* <div className="absolute top-1/2 left-0 -translate-y-[50%] translate-x-[10%] md:-translate-y-[65%] h-full pointer-events-none z-20 flex items-center">
+              <span
+                className="font-libre text-[4vw] md:text-[5vw] text-sun"
+                style={{
+                  letterSpacing: "0.05em",
+                  writingMode: "vertical-rl",
+                  transform: "rotate(180deg)",
+                  whiteSpace: "nowrap",
+                  lineHeight: 1,
+                }}
+              >
+                ALESSANDRA
+              </span>
+            </div> */}
           </div>
+          {/* Left side - Content */}
+          <div className="bg-[#b0ad9c] max-h-screen flex justify-center items-center">
+            <div className="max-w-lg">
+              <h2 className="text-4xl font-baskervville text-center px-4 text-[#f2ede8] pb-16 tracking-wider">
+                Hello my love,
+              </h2>
+
+              <div className="space-y-4 text-[#f2ede8] font-libre px-2">
+                <p className="text-md leading-8 tracking-wide text-center">
+                
+I spent years in high-functioning survival mode. Anxious, overachieving, and completely disconnected from myself. On paper, I had it all: world champion in Karate, straight-A student, climbing the corporate ladder. But behind the polished exterior was a woman quietly spiralling — stuck in cycles of burnout, toxic relationships, and a nervous system always on edge. I tried the breathwork classes, journaling, reiki,  emotional detox retreats in Bali, vision boards — but nothing landed. I still felt stuck.
+
+<br/>
+
+Until I stopped trying to fix myself, and started to FEEL myself. I quit my job, flew to India, and immersed myself in the ancient practice of Asana, Kriya, Breathwork, Meditation, Mantra, Yogic Philosophy & SomaticPractises — and everything shifted. 
+
+<br/>
+
+I experienced what I now call my MAHA Awakening. One word: Yoga — not the kind you do for fitness, but the kind that brings you home to who you really are.
+
+<br/>
+
+MAHA Collective was born from that moment — a space where the path from surviving to thriving becomes real, embodied, and alive. 
+<br/>
+This is more than just a yoga membership.
+ It’s a homecoming. To your body. To your truth. To your Self.
+ </p>
+
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Founder Section */}
-      <section className="py-20 px-4 bg-sand">
-        <div className="max-w-7xl mx-auto">
-          {/* Quote Section */}
-          <div className="text-center mb-16">
-            <div className="bg-light-sage/30 p-8 md:p-12 rounded-lg border border-sun/10 max-w-4xl mx-auto">
-              <p className="text-2xl md:text-3xl text-soil/90 font-baskervville italic leading-relaxed mb-4">
+      <section className="relative px-28 bg-[#d8d6c7] flex flex-col justify-center h-[45vh]">
+        <div className="w-full mx-auto text-center italic leading-10 tracking-wide text-[#ff4d14] text-3xl font-baskervville py-28">
+          <h2 className="mb-1">This is the space I wish I had when I was doing all the<br/> “right” things ... but still felt stuck, lonley and tired.</h2>
+        </div>
+      </section>
+
+      <section className="relative w-full h-screen overflow-hidden bg-[#b0ad9c]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+          {/* Right side - Image with ALESSANDRA text overlay */}
+          <div className="relative h-full bg-[#b0ad9c]">
+            <img
+              src="/images/a-note-from-ale.jpeg"
+              alt="Alessandra in a yoga pose on the beach"
+              className="w-full h-full object-cover py-8 px-8"
+            />
+
+            {/* ALESSANDRA Vertical Text Overlay */}
+            <div className="absolute top-1/2 right-0 -translate-y-[50%] translate-x-[0%] md:-translate-y-[65%] h-full pointer-events-none z-20 flex items-center">
+              <span
+                className="font-libre text-[4vw] md:text-[5vw] text-sun"
+                style={{
+                  letterSpacing: "0.05em",
+                  writingMode: "vertical-rl",
+                  transform: "rotate(180deg)",
+                  whiteSpace: "nowrap",
+                  lineHeight: 1,
+                }}
+              >
+                ALESSANDRA
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-[#b0ad9c] max-h-screen flex justify-center items-center">
+            <div className="max-w-lg px-4">
+              <h2 className="text-2xl font-baskervville text-center px-4 font-bold leading-10 text-sun mb-6 tracking-wider">
                 "Far better to live your own path imperfectly, than to live another's perfectly."
-              </p>
-              <p className="text-right text-soil/70 font-baskervville text-lg">— Bhagavad Gita</p>
-            </div>
-          </div>
+                <br/>— Bhagavad Gita
+              </h2>
 
-          {/* Founder Story */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left side - Image */}
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src="/images/founder.jpeg"
-                  alt="Alessandra, founder of MAHA Collective"
-                  className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-soil/20 via-transparent to-transparent"></div>
-              </div>
-              {/* Decorative elements */}
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-sun/10 blur-xl"></div>
-              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-sun/10 blur-xl"></div>
-            </div>
-
-            {/* Right side - Content */}
-            <div className="space-y-6 text-soil/90 font-baskervville text-lg leading-relaxed">
-              <p>
-                I spent years stuck in loops of anxiety, low self-worth, and a nervous system in overdrive. I knew there
-                had to be more. One word..Yoga. It became the path back to myself.
-              </p>
-
-              <p>
-                Now as a modern-day yogi, I honour both ancient rituals and everyday pleasures. My mornings begin with
-                puja and meditation, and some evenings end with a glass of wine. It's all sacred.
-              </p>
-
-              <p>
-                Maha Collective was born from this journey. A space where discipline meets delight, and transformation
-                is deeply embodied. Rooted in the Himalayan Yog-Vedantic tradition, it brings together the tools,
-                wisdom, and practices that changed my life, now here to help you be radically alive.
-              </p>
-
-              <div className="bg-light-sage/30 p-6 rounded-lg border-l-4 border-sun/30">
-                <p className="text-soil/80 font-baskervville italic">
-                  My teaching is deeply rooted in the Indian yogic tradition, with RYS-certified training in Hatha Yoga,
-                  Pranayama, Kriya, Mantra, Himalayan Kundalini, Naad (sound), Laya movements, Yin Yoga, philosophy,
-                  sacred ritual, and ongoing study of the Vedas.
+              <div className="space-y-4 text-[#f2ede8] font-libre px-8 mt-12">
+                <p className="text-sm md:text-md leading-8 tracking-wide">           
+                  I spent years stuck in loops of anxiety, low self-worth, and a nervous system in overdrive. I knew there had to be more. One word...YOGA. It became the path back to myself.
                 </p>
-              </div>
-
-              <div className="mt-8">
-                <Button className="bg-sun hover:bg-sun/80 text-white px-8 py-5 text-lg rounded-md font-baskervville tracking-wider transition-all hover:scale-105 shadow-lg">
-                  Begin Your Journey
-                </Button>
+                <p className="text-sm md:text-md leading-8 tracking-wide">
+                  Now as a modern-day yogi, I honour both ancient rituals and everyday pleasures. My mornings begin with puja and meditation, and some evenings end with a glass of wine. 
+                  <br/>It's all sacred.
+                </p>
+                <p className="text-sm md:text-md leading-8 tracking-wide">
+                  Maha Collective was born from this journey. A space where discipline meets delight, and transformation is deeply embodied. Rooted in the Himalayan Yog-Vedantic tradition, it brings together the tools, wisdom, and practices that changed my life, now here to help you be radically alive.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-4 bg-light-sage text-soil border-t border-sun/10">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div className="mb-6 md:mb-0">
-              <img src="/images/new-footer-logo.png" alt="MAHA Collective" className="h-20 w-auto" />
-              <p className="mt-2 font-baskervville text-soil text-lg">Join the Collective. Live MAHA.</p>
-            </div>
-            <div className="flex flex-col md:flex-row gap-8 items-center">
-              <Link
-                href="/our-story"
-                className="text-sun transition-colors font-baskervville text-sm uppercase tracking-wider"
-              >
-                About
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-sun transition-colors font-baskervville text-sm uppercase tracking-wider"
-              >
-                Programs
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-sun transition-colors font-baskervville text-sm uppercase tracking-wider"
-              >
-                Contact
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-sun transition-colors font-baskervville text-sm uppercase tracking-wider"
-              >
-                FAQ
-              </Link>
-            </div>
-          </div>
 
-          <div className="border-t border-sun/10 pt-8 mt-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-baskervville font-normal text-soil mb-4 flex items-center">
-                  <Mail className="w-5 h-5 mr-2 text-sun" />
-                  Contact Us
-                </h3>
-                <p className="text-soil/90 font-baskervville mb-2">
-                  <a href="mailto:info@mahacollective.com.au" className="hover:text-sun transition-colors">
-                    info@mahacollective.com.au
-                  </a>
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-baskervville font-normal text-soil mb-4">Sign up to our newsletter</h3>
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
-                    required
-                    className="px-4 py-2 rounded-md border border-sun/20 bg-white/80 focus:outline-none focus:ring-2 focus:ring-sun/50 flex-grow"
-                  />
-                  <Button type="submit" className="bg-sun hover:bg-sun/80 text-white rounded-md font-baskervville">
-                    Subscribe
-                  </Button>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center text-sm">
-            <p>© {new Date().getFullYear()} MAHA Collective. All rights reserved.</p>
+      <section className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden bg-[#b0ad9c]">
+        <div className="flex justify-center items-start gap-16 my-12">
+          <div className="w-64 h-64 flex items-start justify-center">
+            <img
+              src="/images/maha-collective-logo.png"
+              alt="MAHA Collective Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
-      </footer>
+        <div className="relative z-10 px-4 max-w-4xl mx-auto flex flex-col items-center">
+          <h2 className="text-3xl md:text-2xl md:leading-[2.6rem] font-baskervville font-normal text-center text-[#f2ede8] tracking-widest leading-10">
+          My teaching is deeply rooted in the Indian <br/>yogic tradition, with RYS certified training<br/> in Hatha Yoga, Pranayama, Kriya, Mantra,<br/> Himalayan Kundalini, Naad (sound), Laya<br/> movements, Yin Yoga, Philosophy, Sacred<br/> Ritual, and ongoing study of The Vedas.
+          </h2>
+        </div>
+
+        {/* <div className="bg-sun py-1 overflow-hidden w-full absolute left-0 bottom-0">
+          <div className="whitespace-nowrap animate-marquee">
+            {Array.from({ length: 14 }, (_, i) => (
+              <p
+                key={i}
+                className="text-[#d9d6c7] px-8 font-libre text-sm tracking-wider inline-block"
+              >
+                JOIN THE COLLECTIVE. LIVE MAHA.
+              </p>
+            ))}
+          </div>
+        </div> */}
+      </section>
+
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#b0ad9c]">
+        {/* Content */}
+        <div className="relative z-10 px-4 max-w-4xl mx-auto flex flex-col items-center">
+          <h2 className="text-3xl md:text-4xl font-baskervville font-normal text-left text-[#f2ede8] tracking-widest leading-[2.8]">
+            Maha (मह) in Sanskrit means Great.<br />
+            Collective is a community rising together.
+          </h2>
+        </div>
+
+        <div className="mt-44 flex justify-center">
+          <WavyLine />
+        </div>
+
+
+        {/* <div className="bg-[#d9d6c7] py-1 overflow-hidden w-full absolute left-0 bottom-0">
+          <div className="whitespace-nowrap animate-marquee">
+            {Array.from({ length: 14 }, (_, i) => (
+              <p
+                key={i}
+                className="text-[#381f0f] px-8 font-libre text-sm tracking-wider inline-block"
+              >
+                OUR MAHA STORY.
+              </p>
+            ))}
+          </div>
+        </div> */}
+      </section>
+
+      <section className="relative h-screen px-4 bg-[#b0ad9c] flex flex-col justify-center">
+        <div className="w-full mx-auto text-center">
+          <h2 className="text-5xl font-tan-meringue text-[#ff4d14] mb-1">LIVE MAHA</h2>
+          <p className="text-xl text-[#ff4d14] font-libre italic mb-6">/liv 'mä-hä/ verb</p>
+
+          <div className="space-y-2 max-w-xs mx-auto text-left text-white font-libre text-sm md:text-sm leading-relaxed mb-6">
+            <p className="text-[#f2ede8]">To live greatly—awake, rooted, and in flow.</p>
+            <p className="text-[#f2ede8]">To embody your highest Self, your truest nature.</p>
+            <p className="text-[#f2ede8]">To honour sacred balance—between action and surrender,</p>
+            <p className="text-[#f2ede8]">strength and softness.</p>
+            <p className="text-[#f2ede8]">To move with intention, feel deeply, and connect fully.</p>
+            <p className="text-[#f2ede8]">To bring the sacred into the everyday.</p>
+          </div>
+
+          
+          <div className="mx-auto mt-20">
+            <h3 className="text-2xl font-baskervville italic text-center text-[#ff4d14] leading-10">Through powerful yogic practise, we help you live MAHA everyday.</h3>
+          </div>
+
+          <div className="py-1 overflow-hidden w-full mt-36">
+          <div className="whitespace-nowrap animate-marquee">
+            {Array.from({ length: 14 }, (_, i) => (
+              <p
+                key={i}
+                className="text-[#d9d6c7] px-8 font-baskervville italic text-sm tracking-wider inline-block"
+              >
+                WELCOME TO MAHA COLLECTIVE.
+              </p>
+            ))}
+          </div>
+        </div>
+        </div>
+      </section>
+      <SocialMediaSection />
+      <Footer />
     </div>
   )
 }

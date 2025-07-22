@@ -3,13 +3,14 @@
 import type React from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import FlodeskInlineForm from "../components/FlodeskInlineForm"
 
 
 export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen font-libre">
-      <Navbar />
+      {/* <Navbar /> */}
 
       <section className="relative px-28 bg-[#d8d6c7] flex justify-between items-center h-[75vh]">
         <div className="flex-col">
@@ -147,7 +148,7 @@ export default function Home() {
           {/* Right side - Image with ALESSANDRA text overlay */}
 
           <div className="bg-[#b0ad9c] max-h-screen flex justify-center items-center col-span-2">
-            <div className="max-w-lg px-4">
+            {/* <div className="max-w-lg px-4">
               <h2 className="text-xl font-baskervville text-left leading-10 text-[#f2ede8] mb-6 tracking-wider">
               My love,  Join our waitlist to receive:
               </h2>
@@ -166,7 +167,8 @@ export default function Home() {
                   </li>
                 </ol>
               </div>
-            </div>
+            </div> */}
+            <FlodeskInlineForm />
           </div>
 
           <div className="relative h-full bg-[#b0ad9c] col-span-1" style={{ transform: "scale(-1, 1)" }}>
